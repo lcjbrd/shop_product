@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.mapper.AttributeDao">
+    <select id="queryDataCount" parameterType="com.fh.model.vo.PinPaiData" resultType="java.lang.Integer">
+    select count(*) from shop_shuxing;
+    </select>
+    <select id="queryAttributeData" resultType="com.fh.model.po.Attribute"  parameterType="com.fh.model.vo.PinPaiData">
+        select * from  shop_shuxing limit ${size*(start-1)},#{size}
+    </select>
+    <insert id="addAttribute" parameterType="com.fh.model.po.Attribute">
+     insert  into shop_shuxing (name,nameCH,typeId,type,isSKU,isDel,createDate,updateDate,author) value
+     (#{name},#{nameCH},#{typeId},#{type},#{isSKU},0,SYSDATE(),'11')
+    </insert>
+    <update id="updateAttribute" parameterType="com.fh.model.po.Attribute">
+        update shop_shuxing set name=#{name},nameCH=#{nameCH},typeId=#{typeId},type=#{type},isSKU=#{isSKU},
+        isDel=#{isDel},updateDate=#{updateDate},author='11' where id=#{id}
+    </update>
+    <update id="deleteAttributeById" parameterType="java.lang.Integer">
+        update shop_shuxing set isDel=1 where id=#{id}
+    </update>
+</mapper>

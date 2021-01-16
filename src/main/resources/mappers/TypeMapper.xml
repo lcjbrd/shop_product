@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.mapper.TypeMapper">
+      <select id="query" resultType="java.util.Map">
+          select * from shop_type where isDel=0;
+      </select>
+
+      <insert id="addType" parameterType="com.fh.model.po.ProductType" keyProperty="id" useGeneratedKeys="true">
+          insert into shop_type(name,pid,isDel,createDate) value (#{name},#{pid},#{isDel},#{createDate})
+      </insert>
+
+    <update id="updateType" parameterType="com.fh.model.po.ProductType">
+         update shop_type set name=#{name},pid=#{id},isDel=#{isDel},updateDate=#{updateDate} where id=#{id}
+    </update>
+
+    <update id="delType" parameterType="java.lang.Integer">
+         update shop_type set isDel=1 where id=#{id}
+    </update>
+</mapper>

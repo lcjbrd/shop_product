@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fh.mapper.BrandMapper">
+      <select id="queryBrand" resultType="com.fh.model.po.Brand" parameterType="com.fh.model.vo.BrandVo">
+          select * from shop_brand where isDel=0
+          <if test="name!=null and name!=''">
+              and name=#{name}
+          </if>
+          limit ${size*(currPage-1)},#{size}
+      </select>
+
+    <select id="queryCount" resultType="java.lang.Integer" parameterType="com.fh.model.vo.BrandVo">
+         select count(*)from shop_brand where isDel=0
+        <if test="name!=null and name!=''">
+            and name=#{name}
+        </if>
+    </select>
+
+      <insert id="addBrand" parameterType="com.fh.model.po.Brand">
+          insert into shop_brand(name,imgpath,bandDesc,ord,isDel,createDate,author,bandE) value (#{name},#{imgpath},#{bandDesc},#{ord},#{isDel},#{author},#{bandE},#{createDate})
+      </insert>
+
+      <select id="gtiById" parameterType="java.lang.Integer">
+          select * from shop_brand where id=#{id}
+      </select>
+
+    <update id="updateBrand" parameterType="com.fh.model.po.ProductType">
+         update shop_brand set name=#{name},imgpath=#{imgpath},bandDesc=#{bandDesc},ord=#{ord},isDel=#{isDel},updateDate=#{updateDate},author=#{author},bandE={bandE} where id=#{id}
+    </update>
+
+
+</mapper>
